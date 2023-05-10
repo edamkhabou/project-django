@@ -1,0 +1,99 @@
+{% include "magasin/base.html" %}
+
+{% block content %}
+    <h2>Se connecter</h2>
+    <div class="login-form">
+        <form method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="alert alert-danger">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+            <table>
+                {% for field in form %}
+                    <tr>
+                        <td>{{ field.label_tag }}</td>
+                        <td>{{ field }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <button type="submit">Se connecter</button>
+        </form>
+    </div>
+    <div class="signup-login-links">
+        <small>
+            Pas encore inscrit(e)? <a href="{% url 'register' %}">S'inscrire</a><br>
+            Mot de passe oublié? <a href="{%url 'password-reset'%}">Renouveler mon mot de passe</a>
+        </small>
+    </div>
+{% endblock %}
+
+<style>
+    body {
+        background-color: #F0F0F0;
+    }
+
+    h2 {
+        font-size: 28px;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .login-form {
+        background-color: #FFFFFF;
+        border-radius: 5px;
+        padding: 30px;
+        margin: 0 auto;
+        width: 300px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-form table {
+        margin: 20px 0;
+    }
+
+    .login-form td {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .login-form input[type=text],
+    .login-form input[type=password] {
+        border-radius: 3px;
+        border: 1px solid #DADADA;
+        font-size: 14px;
+        height: 30px;
+        padding: 0 10px;
+        width: 100%;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        margin-top: 5px;
+    }
+
+    .login-form button[type=submit] {
+        background-color: #4CAF50;
+        border: none;
+        color: #FFFFFF;
+        font-size: 16px;
+        height: 40px;
+        margin-top: 10px;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .login-form button[type=submit]:hover {
+        background-color: #3E8E41;
+    }
+
+    .signup-login-links {
+        margin: 20px 0;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .signup-login-links a {
+        color: #4CAF50;
+    }
+</style>

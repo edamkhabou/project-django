@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+	
+{% block content %}
+
+<center><h2>{% if id %} Edit {% else %} New {% endif %}Founisseur</h2></center>
+<form method="post" novalidate>
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Save" /> <a href="{% url 'Founisseur' %}" class="btn btn-default">Cancel</a>
+</form>
+
+<style>
+	form {
+		max-width: 600px;
+		margin: 0 auto;
+		padding: 20px;
+		background-color: #f7f7f7;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	}
+
+	h2 {
+		margin-bottom: 20px;
+	}
+
+	input[type="submit"] {
+		background-color: #4CAF50;
+		color: white;
+		padding: 12px 20px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	input[type="submit"]:hover {
+		background-color: #45a049;
+	}
+
+	label {
+		display: block;
+		margin-bottom: 10px;
+		font-weight: bold;
+	}
+
+	input[type="text"], input[type="number"], textarea {
+		width: 100%;
+		padding: 12px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+		margin-bottom: 20px;
+	}
+
+	textarea {
+		height: 100px;
+		resize: vertical;
+	}
+
+	input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+		border-color: #4CAF50;
+	}
+
+	.errorlist {
+		color: red;
+	}
+</style>
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 style="font-size: 24px; color: navy;">Commande {{ commande.id }}</h1>
+  <p>Date de la commande: {{ commande.dateCde }}</p>
+  <p style="font-weight: bold;">Total de la commande: {{ commande.totalCde }}</p>
+
+  <h2 style="margin-top: 20px;">Produits de la commande:</h2>
+  <ul>
+    {% for produit in commande.produits.all %}
+      <li>
+        {{ produit.libellé }} - {{ produit.prix }} €
+        <img src="{{ produit.img.url }}" alt="{{ produit.libellé }} image" style="float: left; margin-right: 10px;">
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
