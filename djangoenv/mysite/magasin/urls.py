@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from .views import TaskDetail
 from django.urls import path
+from .views import CategoryAPIView,ProduitAPIView
 
 from django.contrib.auth.views import (
     PasswordResetView, 
@@ -28,5 +29,7 @@ urlpatterns =[
     path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='magasin/password_reset_confirm.html'),name='password_reset_confirm'),
     path('password-reset-complete/',PasswordResetCompleteView.as_view(template_name='magasin/password_reset_complete.html'),name='password_reset_complete'),
     path("add_commande",views.add_commande,name="Commande"),
-    path('detail_commande/<int:id>/',views.commande_detail,name="detailcomm")
+    path('detail_commande/<int:id>/',views.commande_detail,name="detailcomm"),
+    path('api/category/', CategoryAPIView.as_view()),
+    path('api/produits/',ProduitAPIView.as_view())
 ]
