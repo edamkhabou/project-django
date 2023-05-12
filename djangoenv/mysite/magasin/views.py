@@ -16,6 +16,15 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+ 
+from .models import Categorie
+from magasin.serializers import CategorySerializer,ProduitSerializer
+from rest_framework import viewsets
+
 """def index(request):
     products=Produit.objects.all()
     context={'products':products}
@@ -173,14 +182,14 @@ def add_commande(request):
             commande.save()
 
             # Redirect to the detail view of the newly created commande
-            return redirect('commande_detail', pk=commande.pk)
+            return redirect('detailcomm', commande.pk)
 
     context = {
         'form': form,
         'produits': Produit.objects.all(),
     }
 
-    return render(request, 'magasin/cart.html', context)
+    return render(request, 'magasin/commande/cart.html', context)
 
 def commande_detail(request,id):
     commande = get_object_or_404(Commande, pk=id)
@@ -188,3 +197,27 @@ def commande_detail(request,id):
         'commande': commande
     }
     return render(request, 'magasin/commande/commande_detail.html', context)
+
+
+ 
+class CategoryAPIView(APIView):
+ 
+    def get(self, *args, **kwargs):
+        categories = Categorie.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
+class ProduitAPIView(APIView):
+    def get(self, *args, **kwargs):
+        produit=Produit.objects.all()
+        serializer=ProduitSerializer(produit,many=True)
+        return Response(serializer.data)
+class ProductViewset(viewsets.ReadOnlyModelViewSet):
+
+    serializer_class = ProduitSerializer
+
+    def get_queryset(self):
+        queryset = Produit.objects.all()
+        category_id = self.request.GET.get('category_id')
+        if category_id:
+            queryset = queryset.filter(categorie=category_id)  
+        return queryset
